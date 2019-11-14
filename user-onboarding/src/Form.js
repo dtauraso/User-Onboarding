@@ -3,13 +3,33 @@ import { withFormik, Form as formikForm, Field }  from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 
-const Form = () => {
+const Form = ( {values, handleChange }) => {
 
 
     return (
 
-        <div>testing again</div>
+        <div className="userForm">
+            <form>
+                <input
+                type="text"
+                name="name"
+                placeholder="name"
+                value={values.name}
+                onChange={handleChange}/>
+                <button>Submit</button>
+            </form>
+        </div>
     );
 }
 
-export default Form;
+const FormikUserForm = withFormik({
+    mapPropsToValues({name}) {
+        return {
+            name: name || ""
+        };
+    }
+})(Form);
+
+
+export default FormikUserForm;
+console.log("This is the HOC", FormikUserForm);
